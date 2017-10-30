@@ -12,9 +12,26 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8080/\""
+        }
         release {
+            buildConfigField "String", "BASE_URL", "\"https://hw5epamrealise.appspot.com/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "store"
+
+    productFlavors {
+        GooglePlay {
+            flavorDimension "store"
+            buildConfigField "String", "URDATE_URL", "\"http://googleplaysomeurl.com\""
+        }
+
+        Amazon {
+            flavorDimension "store"
+            buildConfigField "String", "UPDATE_URL", "\"http://amazonsomeurl.com\""
         }
     }
 }

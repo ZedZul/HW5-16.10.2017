@@ -9,8 +9,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
-    private static final String UPDATE_URL = "some url";
+    private static final String BASE_URL = BuildConfig.BASE_URL;
+    private static final String UPDATE_URL = BuildConfig.UPDATE_URL;
 
     String checkUpdate() {
         final String[] pError = new String[1];
