@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">HW5-16.10.2017</string>
+    <string name="app_name">HW5–16.10.2017</string>
+    <string name="check_update">Check Update</string>
 </resources>

@@ -18,22 +18,30 @@ public class ConfigServlet extends HttpServlet {
     public void doPost(final HttpServletRequest pRequest, final HttpServletResponse pResponse)
             throws IOException {
         String pExceptionMessage = "";
-        if (pRequest.getParameter("client_app") == null) {
-            final String pReqVersion = pRequest.getParameter("version");
-            final String pReqForceUpdate = pRequest.getParameter("force_update");
 
-            try {
-                ConfigConstants.setCurrentAppVersion(Integer.valueOf(pReqVersion));
-                ConfigConstants.setForceUpdate(Boolean.valueOf(pReqForceUpdate));
-            } catch (final Exception pE) {
-                ConfigConstants.setCurrentAppVersion(DEFAULT_APP_VERSION);
-                ConfigConstants.setForceUpdate(DEFAULT_FORCE_UPDATE);
-                pExceptionMessage = pE.getMessage();
-            }
+        final String pReqVersion = pRequest.getParameter("version");
+        final String pReqForceUpdate = pRequest.getParameter("force_update");
+
+        try {
+            ConfigConstants.setCurrentAppVersion(Integer.valueOf(pReqVersion));
+            ConfigConstants.setForceUpdate(Boolean.valueOf(pReqForceUpdate));
+        } catch (final Exception pE) {
+            ConfigConstants.setCurrentAppVersion(DEFAULT_APP_VERSION);
+            ConfigConstants.setForceUpdate(DEFAULT_FORCE_UPDATE);
+            pExceptionMessage = pE.getMessage();
         }
 
         pResponse.setContentType("application/json");
         final ConfigGson result = new ConfigGson(ConfigConstants.getCurrentAppVersion(), ConfigConstants.isForceUpdate(), pExceptionMessage);
+        new Gson().toJson(result, pResponse.getWriter());
+
+    }
+
+    @Override
+    public void doGet(final HttpServletRequest pRequest, final HttpServletResponse pResponse)
+            throws IOException {
+        pResponse.setContentType("application/json");
+        final ConfigGson result = new ConfigGson(ConfigConstants.getCurrentAppVersion(), ConfigConstants.isForceUpdate(), "");
         new Gson().toJson(result, pResponse.getWriter());
 
     }
