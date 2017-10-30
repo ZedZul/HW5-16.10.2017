@@ -1,6 +1,6 @@
 package com.zedzul.github.hw5_16102017.backend;
 
-final class Config {
+final class ConfigConstants {
 
     static void setCurrentAppVersion(final Integer pCurrentAppVersion) {
         CURRENT_APP_VERSION = pCurrentAppVersion;
