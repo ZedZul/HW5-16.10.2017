@@ -23,17 +23,17 @@ public class ConfigServlet extends HttpServlet {
             final String pReqForceUpdate = pRequest.getParameter("force_update");
 
             try {
-                Config.setCurrentAppVersion(Integer.valueOf(pReqVersion));
-                Config.setForceUpdate(Boolean.valueOf(pReqForceUpdate));
+                ConfigConstants.setCurrentAppVersion(Integer.valueOf(pReqVersion));
+                ConfigConstants.setForceUpdate(Boolean.valueOf(pReqForceUpdate));
             } catch (final Exception pE) {
-                Config.setCurrentAppVersion(DEFAULT_APP_VERSION);
-                Config.setForceUpdate(DEFAULT_FORCE_UPDATE);
+                ConfigConstants.setCurrentAppVersion(DEFAULT_APP_VERSION);
+                ConfigConstants.setForceUpdate(DEFAULT_FORCE_UPDATE);
                 pExceptionMessage = pE.getMessage();
             }
         }
 
         pResponse.setContentType("application/json");
-        final ConfigGson result = new ConfigGson(Config.getCurrentAppVersion(), Config.isForceUpdate(), pExceptionMessage);
+        final ConfigGson result = new ConfigGson(ConfigConstants.getCurrentAppVersion(), ConfigConstants.isForceUpdate(), pExceptionMessage);
         new Gson().toJson(result, pResponse.getWriter());
 
     }
