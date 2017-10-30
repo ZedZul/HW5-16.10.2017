@@ -21,6 +21,10 @@ class UpdateChecker implements IUpdateChecker {
         mConfig = listener.getConfig();
     }
 
+    String fakeCurentVersion(final String pFake) {
+        return pFake;
+    }
+
     @Override
     public Boolean isForceUpdate() {
         return mConfig.isForceUpdate();

@@ -12,17 +12,23 @@ public class MainActivity extends AppCompatActivity {
     private static final String BASE_URL = "http://10.0.2.2:8080/";
     private static final String UPDATE_URL = "some url";
 
-    void checkUpdate() {
+    String checkUpdate() {
+        final String[] pError = new String[1];
         final AsyncCheckUpdateTask pAsyncCheckUpdateTask = new AsyncCheckUpdateTask() {
-
             @Override
             protected void onPostExecute(final String result) {
+                pError[0] = mChecker.getError();
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                VersionDialog(alertDialogBuilder, mChecker);
+                if (mChecker.getError() == null || mChecker.getError() == "") {
+                    if (mChecker.getCurrentVersion() > BuildConfig.VERSION_CODE) {
+                        VersionDialog(alertDialogBuilder, mChecker);
+                    }
+                }
 
             }
         };
         pAsyncCheckUpdateTask.execute(new Pair<>(getApplicationContext(), BASE_URL));
+        return pError[0];
     }
 
     void VersionDialog(final AlertDialog.Builder pAlertDialogBuilder, final IUpdateChecker pChecker) {
